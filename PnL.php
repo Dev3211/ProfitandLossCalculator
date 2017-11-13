@@ -52,7 +52,7 @@ if($numOne > $numTwo) {
 echo 'Therefore, as your cost price is higher than the selling price; there is a loss.';
 echo "<br>";
 echo ' Loss ' . ' = ' .  "\n" . $calc->sub($numOne, $numTwo); // we will now minus the inputs as per the formula
-$losspercent = ($numOne - $numTwo);
+$losspercent = $calc->sub($numOne, $numTwo);
 echo ' Loss Percentage ' . ' = ' . round(($losspercent / $numOne) * 100, 2) . '%'; //we will now find out the percentage; loss/total cost * 100 as per the formula and round up any decimal numbers to 2 decimal places.
 }
 
@@ -60,7 +60,7 @@ if($numTwo > $numOne) {
 echo 'Therefore, as your selling price is higher than the cost price; there is a profit.';
 echo "<br>";
 echo 'Profit' . ' = ' . "\n" . $calc->sub($numTwo, $numOne); // we will now minus the inputs as per the formula
-$profitpercent = ($numTwo - $numOne);
+$profitpercent = $calc->sub($numTwo, $numOne);
 echo ' Profit Percentage ' . ' = ' . round(($profitpercent / $numOne) * 100, 2) . '%'; //we will now find out the percentage; profit/total cost * 100 as per the formula and round up any decimal numbers 2 decimal places.
 }
 
