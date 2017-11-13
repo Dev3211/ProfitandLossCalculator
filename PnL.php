@@ -29,41 +29,40 @@ function isNumberKey(evt){
 </form>
 </html> 
 <?php
+require_once 'class.calc.php';
 
-$costprice = $_POST["CP"]; 
-$sellingprice = $_POST["SP"]; 
+$calc = new Calc();
 
-//time for the calculation:
+if(isset($_POST['submit'])){
+$numOne = $_POST['CP'];
+$numTwo = $_POST['SP'];
 
-//first check if the form is empty or not.
-
-if(empty($costprice) || empty($sellingprice)) {
-die("Please provide a valid integer");
+if(empty($numOne) or empty($numTwo)){
+die('Field cannot be empty');
 }
 
-//check if they are equal to each other
-if ($costprice === $sellingprice) { 
+if ($numOne === $numTwo) { 
 echo 'Therefore, as your selling price and the cost price is the same; you have earned no profit nor loss.';
 echo "<br>";
-echo 'Profit' . ' = ' . ($sellingprice - $costprice) . "\n"; // we will now minus the inputs as per the formula
-echo 'Loss' . ' = ' . ($sellingprice - $costprice) . "\n"; // we will now minus the inputs as per the formula
+echo 'Profit' . ' = ' .  $calc->sub($numOne, $numTwo) . "\n"; // we will now minus the inputs as per the formula
+echo 'Loss' . ' = ' .  $calc->sub($numTwo, $numOne) . "\n"; // we will now minus the inputs as per the formula
 }
 
-//for the CP = Loss
-if($costprice > $sellingprice) {
+if($numOne > $numTwo) {
 echo 'Therefore, as your cost price is higher than the selling price; there is a loss.';
 echo "<br>";
-echo ' Loss ' . ' = ' . ($costprice - $sellingprice) . "\n"; // we will now minus the inputs as per the formula
-$losspercent = ($costprice - $sellingprice);
-echo ' Loss Percentage ' . ' = ' . round(($losspercent / $costprice) * 100, 2) . '%'; //we will now find out the percentage; loss/total cost * 100 as per the formula and round up any decimal numbers to 2 decimal places.
+echo ' Loss ' . ' = ' .  "\n" . $calc->sub($numOne, $numTwo); // we will now minus the inputs as per the formula
+$losspercent = ($numOne - $numTwo);
+echo ' Loss Percentage ' . ' = ' . round(($losspercent / $numOne) * 100, 2) . '%'; //we will now find out the percentage; loss/total cost * 100 as per the formula and round up any decimal numbers to 2 decimal places.
 }
 
-//for the SP = profit
-if($sellingprice > $costprice) {
+if($numTwo > $numOne) {
 echo 'Therefore, as your selling price is higher than the cost price; there is a profit.';
 echo "<br>";
-echo 'Profit' . ' = ' . ($sellingprice - $costprice) . "\n"; // we will now minus the inputs as per the formula
-$profitpercent = ($sellingprice - $costprice);
-echo ' Profit Percentage ' . ' = ' . round(($profitpercent / $costprice) * 100, 2) . '%'; //we will now find out the percentage; profit/total cost * 100 as per the formula and round up any decimal numbers 2 decimal places.
+echo 'Profit' . ' = ' . "\n" . $calc->sub($numTwo, $numOne); // we will now minus the inputs as per the formula
+$profitpercent = ($numTwo - $numOne);
+echo ' Profit Percentage ' . ' = ' . round(($profitpercent / $numOne) * 100, 2) . '%'; //we will now find out the percentage; profit/total cost * 100 as per the formula and round up any decimal numbers 2 decimal places.
 }
+
+} 
 ?>
